@@ -1,0 +1,1 @@
+docker run --name postgres -d --restart unless-stopped -p 5432:5432 -e POSTGRES_PASSWORD='lizzy4231' -v ${PWD}/data:/var/lib/postgresql/data postgres:12.2
