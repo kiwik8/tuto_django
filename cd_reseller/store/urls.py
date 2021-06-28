@@ -1,7 +1,8 @@
-from django.conf.urls import include
+from django.conf.urls import include, url
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('list/', views.listing, name='list')
+    path('', views.listing, name='list'),
+    url(r'^(?P<variety_id>[0-9]+)/$', views.detail, name='detail'),
 ]

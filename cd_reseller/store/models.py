@@ -3,17 +3,14 @@
 # Create your models here.
 
 
-
-
-
-VARIETIES = {
-    'amnesia-haze' : {'name' : "Amnesia Haze"},
-    'critical-2.0': {'name' : "Critical 2.0" },
-    'lemon-haze' : {'name' : "Lemon Haze" },
+PRICES = {
+    'amnesia-haze' : {'price' : "10"},
+    'critical-2.0': {'price' : "15" },
+    'lemon-haze' : {'price' : "8" },
 }
 
-PRICES = [
-    {'price' : '10', 'varieties' : [VARIETIES['amnesia-haze']]},
-    {'price' : '15', 'varieties' : [VARIETIES['critical-2.0']]},
-    {'price' : '8', 'varieties' : [VARIETIES['lemon-haze']]},
+VARIETIES = [
+    {'name' : 'Amnesia Haze', 'prices' : [PRICES['amnesia-haze']]},
+    {'name' : 'Critical 2.0 + ', 'prices' : [PRICES['critical-2.0']]},
+    {'name' : 'Lemon Haze', 'prices' : [PRICES['lemon-haze']]},
 ]

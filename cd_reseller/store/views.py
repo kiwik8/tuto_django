@@ -8,6 +8,14 @@ def index(request):
 
 
 def listing(request):
-    variety = ["<li>{}</li>".format(item['name']) for item in VARIETIES.values()]
+    variety = ["<li>{}</li>".format(variety['name']) for variety in VARIETIES]
     message = """<ul>{}</ul>""".format("\n".join(variety))
+    return HttpResponse(message)
+
+
+def detail(request, variety_id):
+    id = int(variety_id)
+    variety = VARIETIES[id]
+    price = " ".join([price['price'] for price in variety['prices']])
+    message = "The variety is {} and it price is {}$".format(variety['name'], price)
     return HttpResponse(message)
