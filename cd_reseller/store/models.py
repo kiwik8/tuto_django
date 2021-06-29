@@ -16,7 +16,7 @@ VARIETIES = [
 ]
 
 class Price(models.Model):
-    price = models.IntegerField(max_length=5)
+    price = models.IntegerField()
 
 
 class Contact(models.Model):
@@ -35,7 +35,7 @@ class Variety(models.Model):
 class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     contacted = models.BooleanField(default=False)
-    variety = models.OneToOneField(Variety)
+    variety = models.OneToOneField(Variety, on_delete=models.CASCADE)
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
 
 
