@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import VARIETIES
+#from .models import VARIETIES
 # Create your views here.
 
 def index(request):
