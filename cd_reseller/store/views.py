@@ -11,16 +11,16 @@ def index(request):
     return HttpResponse(message)
 
 def listing(request):
-    variety = ["<li>{}</li>".format(variety['name']) for variety in VARIETIES]
-    message = """<ul>{}</ul>""".format("\n".join(variety))
+    varieties = Variety.objects.filter(available=True)
+    formatted_varieties = ["<li>{}</li>".format(variety.title) for variety in varieties]
+    message = """<ul>{}</ul>""".format("\n".join(formatted_varieties))
     return HttpResponse(message)
 
 
 def detail(request, variety_id):
-    id = int(variety_id)
-    variety = VARIETIES[id]
-    price = " ".join([price['price'] for price in variety['prices']])
-    message = "The variety is {} and it price is {}$".format(variety['name'], price)
+    variety = Variety.objects.get(pk=variety_id)
+    prices = " ".join([str(price.value) for price in variety.prices.all()])
+    message = f"La variété est {variety.title}, et son prix est de {prices}$"
     return HttpResponse(message)
 
 
