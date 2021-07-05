@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Booking, Variety, Price, Contact
-#from .models import VARIETIES
+from django.template import loader
+
 # Create your views here.
 
 def index(request):
     varieties = Variety.objects.filter(available=True).order_by('-created_at')[:12]
     formatted_varieties = ["<li>{}</li>".format(variety.title) for variety in varieties]
     message = """<ul>{}</ul>""".format("\n".join(formatted_varieties))
-    return HttpResponse(message)
+    template = loader.get_template('store/index.html')
+    return HttpResponse(template.render(request=request))
 
 def listing(request):
     varieties = Variety.objects.filter(available=True)
