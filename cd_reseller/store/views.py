@@ -27,23 +27,21 @@ def detail(request, variety_id):
 def search(request):
     query = request.GET.get('query')
     if not query:
-        message = "Tu ne me demandes rien!"
+        varieties = Variety.objects.all()
     else:
-        varieties = [
-            variety for variety in VARIETIES
-            if query in variety['name']
-        ]
-        if len(varieties) == 0:
-            message = "Nop j'ai rien trouvé!"
+        varieties = Variety.objects.filter(title__icontains=query)
+    if not varieties.exists():
+        varieties = Variety.objects.filter(prices__value__icontains=query)
 
-        else:
-            varieties = ["<li>{}</li>".format(variety['name']) for variety in varieties]
-            message = """
-                Nous avons trouvé les variétés correspondant à votre requête ! Les voici :
-                <ul>
-                    {}
-                </ul>
-            """.format("</li><li>".join(varieties))
+    if not varieties.exists():
+        message = "Roh je ne trouve rien ! "
+
+    else:
+        varieties = ["<li>{}</li>".format(variety.title) for variety in varieties]
+        message = """
+            Nous avons trouvé les variétés correspondant à votre requête ! Les voici :
+            <ul>{}</ul>
+        """.format(" ".join(varieties))
 
     
     return HttpResponse(message)
