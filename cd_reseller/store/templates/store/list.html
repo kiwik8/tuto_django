@@ -24,7 +24,7 @@
           <img class="img-responsive img-thumbnail img-ad" src="{{ variety.picture }}" alt="{{ variety.title }}">
         </a>
         <a href="{% url 'store:detail' variety_id=variety.id %}"></a>
-        <h3><a href="#">{{ variety.title }}</a></h3>
+        <h3><a href="{% url 'store:detail' variety_id=variety.id%}">{{ variety.title }}</a></h3>
         {% for price in variety.prices.all %}
             <p>{{ price.value }}$</p>
         {% endfor %}

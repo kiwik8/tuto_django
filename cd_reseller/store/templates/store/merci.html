@@ -1,0 +1,8 @@
+{% extends 'store/base.html' %}
+
+
+{% block content %}
+    <h2 class="text-center">Thanks a lot for your booking</h2>
+    <h3 class="text-center">{{ variety_title }} will come soon!</h3>
+    <a href="/"><img src="{{ variety_picture }}" class= "img-responsive mx-auto" alt="{{ variety_title }}"> </a>
+{% endblock content %}

@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import Booking, Variety, Price, Contact
 from django.template import loader
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from .forms import ContactForm
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -37,8 +39,42 @@ def detail(request, variety_id):
         'variety_title' : variety.title,
         'prices_value' : prices,
         'variety_id' : variety_id,
-        'thumbnail' : variety.picture
+        'thumbnail' : variety.picture,
     }
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            name = form.cleaned_data['name']
+            try:
+                contact = Contact.objects.get(email=email)
+            except ObjectDoesNotExist:
+                contact = Contact.objects.create(
+                    email=email,
+                    name=name
+                )
+
+            variety = get_object_or_404(Variety, pk=variety_id)
+            booking = Booking.objects.create(
+                variety=variety,
+                contact=contact
+            )
+            variety.available = False
+            variety.save()
+            context = {
+                'variety_title' : variety.title,
+                'variety_picture' : variety.picture
+            }
+
+            return render(request, 'store/merci.html', context)
+        else:
+            form['errors'] = form.errors.items()
+    else:
+        form = ContactForm
+        
+
+
+    context['form'] = form
     return render(request, 'store/detail.html', context)
 
 
