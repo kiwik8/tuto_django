@@ -36,9 +36,9 @@ def detail(request, variety_id):
 def search(request):
     query = request.GET.get('query')
     if not query:
-        varieties = get_list_or_404(Variety)
+        varieties = Variety.objects.all()
     else:
-        varieties = get_list_or_404(Variety, title__icontains=query)
+        varieties = Variety.objects.filter(title__icontains=query)
   
     title = "Results from your request %s"%query
     context = {

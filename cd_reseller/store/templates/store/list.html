@@ -5,10 +5,12 @@
     <hr class="detail-separator">
 </div>
 
+{% include 'store/search_form.html' %}
+
 
 {% if varieties|length_is:"0" %}
 <div class="text-center">
-    Oh no ! There isn't any varieties from your search
+    <h3 class="text-center">Oh no there isn't variety like your search</h3>
 </div>
 
     
