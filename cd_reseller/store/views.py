@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse
 from .models import Booking, Variety, Price, Contact
 from django.template import loader
@@ -13,7 +13,7 @@ def index(request):
     return render(request, 'store/index.html', context)
 
 def listing(request):
-    varieties = Variety.objects.filter(available=True)
+    varieties = get_list_or_404(Variety, available=True)
     context = {
         'varieties' : varieties
     }
@@ -21,7 +21,7 @@ def listing(request):
 
 
 def detail(request, variety_id):
-    variety = Variety.objects.get(pk=variety_id)
+    variety = get_object_or_404(Variety, pk=variety_id)
     prices = " ".join([str(price.value) for price in variety.prices.all()])
     prices_value = " ".join(prices)
     context = {
@@ -36,13 +36,11 @@ def detail(request, variety_id):
 def search(request):
     query = request.GET.get('query')
     if not query:
-        varieties = Variety.objects.all()
+        varieties = get_list_or_404(Variety)
     else:
-        varieties = Variety.objects.filter(title__icontains=query)
-    if not varieties.exists():
-        varieties = Variety.objects.filter(prices__value__icontains=query)
+        varieties = get_list_or_404(Variety, title__icontains=query)
   
-    title = "Résultats pour votre requête %s"%query
+    title = "Results from your request %s"%query
     context = {
         'varieties' : varieties,
         'title' : title
