@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse
 from .models import Booking, Variety, Price, Contact
 from django.template import loader
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 
@@ -13,9 +14,18 @@ def index(request):
     return render(request, 'store/index.html', context)
 
 def listing(request):
-    varieties = get_list_or_404(Variety, available=True)
+    varieties_list = get_list_or_404(Variety, available=True)
+    paginator = Paginator(varieties_list, 6)
+    page = request.GET.get('page')
+    try:
+        varieties = paginator.page(page)
+    except PageNotAnInteger:
+        varieties = paginator.page(1)
+    except EmptyPage:
+        varieties = paginator.page(paginator.num_pages)
     context = {
-        'varieties' : varieties
+        'varieties' : varieties,
+        'paginate' : True
     }
     return render(request, 'store/listing.html', context)
 
@@ -23,10 +33,9 @@ def listing(request):
 def detail(request, variety_id):
     variety = get_object_or_404(Variety, pk=variety_id)
     prices = " ".join([str(price.value) for price in variety.prices.all()])
-    prices_value = " ".join(prices)
     context = {
         'variety_title' : variety.title,
-        'prices_value' : prices_value,
+        'prices_value' : prices,
         'variety_id' : variety_id,
         'thumbnail' : variety.picture
     }
