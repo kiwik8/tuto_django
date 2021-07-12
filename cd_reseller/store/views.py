@@ -7,23 +7,30 @@ from django.template import loader
 
 def index(request):
     varieties = Variety.objects.filter(available=True).order_by('-created_at')[:12]
-    formatted_varieties = ["<li>{}</li>".format(variety.title) for variety in varieties]
-    message = """<ul>{}</ul>""".format("\n".join(formatted_varieties))
-    template = loader.get_template('store/index.html')
-    return HttpResponse(template.render(request=request))
+    context = {
+        'varieties' : varieties
+    }
+    return render(request, 'store/index.html', context)
 
 def listing(request):
     varieties = Variety.objects.filter(available=True)
-    formatted_varieties = ["<li>{}</li>".format(variety.title) for variety in varieties]
-    message = """<ul>{}</ul>""".format("\n".join(formatted_varieties))
-    return HttpResponse(message)
+    context = {
+        'varieties' : varieties
+    }
+    return render(request, 'store/listing.html', context)
 
 
 def detail(request, variety_id):
     variety = Variety.objects.get(pk=variety_id)
     prices = " ".join([str(price.value) for price in variety.prices.all()])
-    message = f"La variété est {variety.title}, et son prix est de {prices}$"
-    return HttpResponse(message)
+    prices_value = " ".join(prices)
+    context = {
+        'variety_title' : variety.title,
+        'prices_value' : prices_value,
+        'variety_id' : variety_id,
+        'thumbnail' : variety.picture
+    }
+    return render(request, 'store/detail.html', context)
 
 
 def search(request):
@@ -34,16 +41,10 @@ def search(request):
         varieties = Variety.objects.filter(title__icontains=query)
     if not varieties.exists():
         varieties = Variety.objects.filter(prices__value__icontains=query)
-
-    if not varieties.exists():
-        message = "Roh je ne trouve rien ! "
-
-    else:
-        varieties = ["<li>{}</li>".format(variety.title) for variety in varieties]
-        message = """
-            Nous avons trouvé les variétés correspondant à votre requête ! Les voici :
-            <ul>{}</ul>
-        """.format(" ".join(varieties))
-
-    
-    return HttpResponse(message)
+  
+    title = "Résultats pour votre requête %s"%query
+    context = {
+        'varieties' : varieties,
+        'title' : title
+    }
+    return render(request, 'store/search.html', context)

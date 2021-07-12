@@ -238,3 +238,8 @@ footer p {
 .errorlist .error {
   color: red;
 }
+
+.img-ad{
+    height: 300px;
+    width: 300px;
+}
