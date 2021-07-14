@@ -49,7 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'cd_reseller.urls'
@@ -83,7 +84,8 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'lizzy4231',
         'HOST': '192.168.1.34',
-        'PORT': '5432'
+        'PORT': '5432',
+        'ATOMIC_REQUESTS' : True,
     }
 }
 

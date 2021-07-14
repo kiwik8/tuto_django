@@ -55,12 +55,15 @@ def detail(request, variety_id):
                 )
 
             variety = get_object_or_404(Variety, pk=variety_id)
+            variety.stock = variety.stock -1
+            if variety.stock == 0:
+                variety.available = False
+            variety.save()
             booking = Booking.objects.create(
                 variety=variety,
                 contact=contact
             )
-            variety.available = False
-            variety.save()
+            
             context = {
                 'variety_title' : variety.title,
                 'variety_picture' : variety.picture

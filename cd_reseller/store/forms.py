@@ -1,17 +1,12 @@
-from django import forms
+from django.forms import ModelForm, TextInput, EmailInput
+from .models import Contact
 
-
-class ContactForm(forms.Form):
-    name = forms.CharField(
-        max_length=100,
-        label='Name',
-        widget=forms.TextInput(attrs={'class' : 'form-control'}),
-        required=True
-    )
-
-    email = forms.EmailField(
-        label='Email',
-        widget=forms.EmailInput(attrs={'class' : 'form-control'}),
-        required=True
-        )
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = ["name", "email"]
+        widgets = {
+            'name': TextInput(attrs={'class': 'form-control'}),
+            'email': EmailInput(attrs={'class': 'form-control'})
+        }
     
