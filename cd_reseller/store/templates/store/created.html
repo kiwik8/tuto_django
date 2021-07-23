@@ -1,0 +1,38 @@
+{% extends 'store/base.html' %}
+
+
+
+{% block content %}
+
+    <h2>{{ message }}</h2>
+    
+    {% if success %}
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">{{ variety_title }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ variety_price }}</td>
+                    <td>{{ variety_stock }}</td>
+                </tr>
+                <tr>
+                    <td><img src="{{ variety_picture }}" alt="{{ variety_title }}" class="img-responsive"></td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% else %}
+    <div class="alert alert-warning d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div>
+          {{ message }}
+        </div>
+    {% endif %}
+    
+        
+
+{% endblock content %}
+    

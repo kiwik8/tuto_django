@@ -10,7 +10,7 @@
 <div class="col-md-6">
   <div style="margin-bottom:45px">
     <h2 class="text-center">Price</h2>
-    <p>{{ prices_value }}$</p>
+    <p>{{ variety_price }}$</p>
   </div>
 
   <h2 class="text-center artist_name">Book {{ variety_title }}!</h2>
@@ -35,15 +35,7 @@
 </div>
 
 
-{% if errors %}
-<div>
-  {% for key, error in errors %}
-  {% autoescape off %}
-    {{ error }}
-  {% endautoescape %}
-  {% endfor %}
-</div>
-{% endif %}
+
 
 
 {% endblock %}

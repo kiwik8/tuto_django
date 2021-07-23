@@ -25,9 +25,7 @@
         </a>
         <a href="{% url 'store:detail' variety_id=variety.id %}"></a>
         <h3><a href="{% url 'store:detail' variety_id=variety.id%}">{{ variety.title }}</a></h3>
-        {% for price in variety.prices.all %}
-            <p>{{ price.value }}$</p>
-        {% endfor %}
+            <p>{{ variety.price }}$</p>
     </div>
     {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
     {% endfor %}

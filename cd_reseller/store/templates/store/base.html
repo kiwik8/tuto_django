@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Beuhcherie </title>
+    <title>Weed Store</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'store/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -24,7 +24,7 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="brand">Beuhcherie</div>
+    <div class="brand">Weed Store</div>
 
     <!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
@@ -38,19 +38,19 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
-                <a class="navbar-brand" href="index.html">Beucherie</a>
+                <a class="navbar-brand" href="{% url 'index' %}">Weed Store</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/">Menu principal</a>
+                        <a href="/">Home menu</a>
                     </li>
                     <li>
-                        <a href="{% url 'store:listing' %}">Toutes les variétés</a>
+                        <a href="{% url 'store:listing' %}">All of our varieties</a>
                     </li>
                     <li>
-                        <a href="#">A propos de nous?</a>
+                        <a href="{% url 'about' %}">About us?</a>
                     </li>
                 </ul>
             </div>
@@ -71,7 +71,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright 2021 &copy; Beuhcherie </p>
+                    <p>Copyright 2021 &copy; Weed Store </p>
                 </div>
             </div>
         </div>

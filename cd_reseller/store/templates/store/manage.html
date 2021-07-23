@@ -1,0 +1,30 @@
+{% extends 'store/base.html' %}
+
+
+
+{% block content %}
+    
+    <form action="{% url 'manage'%}" method="post" class="form-inline" align="center">
+        {% csrf_token %}
+        {{ form.as_ul }}
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    
+
+
+
+
+    {% if errors %}
+    <div>
+      {% for key, error in errors %}
+      {% autoescape off %}
+        {{ error }}
+      {% endautoescape %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+
+{% endblock content %}
+    

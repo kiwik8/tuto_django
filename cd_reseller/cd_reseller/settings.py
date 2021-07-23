@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,14 +78,23 @@ WSGI_APPLICATION = 'cd_reseller.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cd',
-        'USER': 'postgres',
-        'PASSWORD': 'lizzy4231',
-        'HOST': '192.168.1.34',
-        'PORT': '5432',
+var_home = "not_home"
+if not var_home == "not_home":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'cd',
+            'USER': 'postgres',
+            'PASSWORD': 'lizzy4231',
+            'HOST': '192.168.1.34',
+            'PORT': '5432',
+            'ATOMIC_REQUESTS' : True,
+        },}
+else:
+    DATABASES = {
+      'default' : {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
         'ATOMIC_REQUESTS' : True,
     }
 }
@@ -112,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'fr-be'
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'UTC'
 
