@@ -34,7 +34,7 @@ jobs:
       run : |
         pip install flake8
         flake8 --ignore E201,E202,E226,E231,E302,E501
-    -name: Check code
+    - name: Check code
     run: |
         pip install coverage
         coverage manage.py test
