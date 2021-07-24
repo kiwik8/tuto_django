@@ -10,27 +10,33 @@
 <div class="col-md-6">
   <div style="margin-bottom:45px">
     <h2 class="text-center">Price</h2>
-    <p>{{ variety_price }}$</p>
+    <p class='text-center'>{{ variety_price }}$</p>
   </div>
 
   <h2 class="text-center artist_name">Book {{ variety_title }}!</h2>
   <p style="margin-bottom: 20px;">Ask us for {{ variety_title }} and we will deliver you ! </p>
-  <form class="form-inline" action="{% url 'store:detail' variety_id=variety_id %}" method="post">
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <a href="{% url 'store:booking' variety_id=variety_id  %}">  
+      <button type="button" class="btn btn-primary"> Booking </button>
+    </a>
+  </div>
+  <!-- <form class="form-inline" action="{% url 'store:detail' variety_id=variety_id %}" method="post">
     {% csrf_token %}
     <div class="form-group {% if form.name.errors %}has-warning has-feedback{% endif %}">
         <label for="{{ form.name.id_for_label }}" class="control-label">Nom</label>
         <!-- <input type="text" name="name" value="" id="name"> -->
-        {{ form.name }}
+        <!-- {{ form.name }}
     </div>
     <div class="form-group {% if form.email.errors %}has-warning has-feedback{% endif %}">
         <label for="{{ form.email.id_for_label }}" class="control-label">E-mail</label>
         <!-- <input type="text" name="email" value="" id="email"> -->
-        {{ form.email }}
+         <!-- {{ form.email }}
     </div>
     <!-- <input type="hidden" class="hidden" value="" name="album_id"> -->
 
-    <button type="submit" class="btn btn-success">Book</button>
-  </form>
+    <!-- <button type="submit" class="btn btn-success">Book</button>
+  </form> -->
+
 
 </div>
 

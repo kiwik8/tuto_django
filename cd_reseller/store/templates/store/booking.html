@@ -1,0 +1,35 @@
+{% extends 'store/base.html' %}
+
+
+{% block content %}
+    <style>
+      .pgp{
+      padding-right: 5px;
+      }   
+    </style>
+    <form action="{% url 'store:booking' variety_id=variety_id %}" method="post" class="form-inline" align="center">
+        {% csrf_token %}
+        <div class="fieldWrapper">
+          <table align="center">
+            <tbody>
+              {% for field in form %}
+                <tr class='field'>
+                  <td class="pgp"> {{ field.label_tag }} </td>
+                  <td> {{ field }} </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&zwnj;</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          </div>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <br>
+        <br>
+    </form>
+
+{% endblock content %}
+    

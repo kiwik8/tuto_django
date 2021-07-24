@@ -3,14 +3,6 @@ from django.db import models
 # Create your models here.
 
 
-class Contact(models.Model):
-    email = models.EmailField(max_length=100)
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
 class Variety(models.Model):
     reference = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -25,11 +17,12 @@ class Variety(models.Model):
 
 class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    contacted = models.BooleanField(default=False)
+    shipped = models.BooleanField(default=False)
     variety = models.ForeignKey(Variety, on_delete=models.CASCADE)
-    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    email = models.EmailField(null=False)
+    address = models.CharField(null=False, max_length=400)
+    pgp_public_address = models.TextField(null=False)
+    quantity = models.IntegerField(null=False)
 
     def __str__(self):
         return self.contact.name
-
-

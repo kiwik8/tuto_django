@@ -6,6 +6,7 @@
 
 {% block content %}
     <form action="{% url 'manage'%}" method="post" class="form-inline" align="center">
+      {% csrf_token %}
       <br>
       <br>
       <div class="fieldWrapper">
