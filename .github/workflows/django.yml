@@ -1,4 +1,4 @@
-name: Django CI
+name: Tests Django
 
 on:
   push:
@@ -8,8 +8,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./cd_reseller/
     strategy:
       max-parallel: 4
       matrix:
@@ -26,15 +28,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
-      env:
-          SECRET_KEY: 69tgugtg%^fgJO&*&
-          DB_NAME: mydb
-          DB_USER: userdb
-          DB_PASSWORD: password
-          DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 [::1]
-          DEBUG_MODE: False
-          TIME_ZONE: Europe
-          CACHE_KEY_PREFIX: Halo
       run: |
-        python cd_reseller/manage.py test
+        python manage.py test
+    - name: Lint using Flake 8
+      run : |
+        pip install flake8
+        flake8
     

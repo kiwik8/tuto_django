@@ -159,27 +159,28 @@ def booking(request, variety_id):
             pgp = form.cleaned_data['pgp_public_address']
             email = form.cleaned_data['email']
             quantity = form.cleaned_data['quantity']
-            Booking.objects.create(
-                address=address,
-                pgp_public_address=pgp,
-                email=email,
-                quantity=quantity,
-                variety=variety
+            if variety.available:
+                Booking.objects.create(
+                    address=address,
+                    pgp_public_address=pgp,
+                    email=email,
+                    quantity=quantity,
+                    variety=variety
 
-            )
-            # 4,3,2,1,0
-            variety.stock = variety.stock -1 
-            if variety.stock == 0:
-                variety.available = False
+                )
+                # 4,3,2,1,0
+                variety.stock = variety.stock - 1
+                if variety.stock == 0:
+                    variety.available = False
 
-            variety.save()
-            context = {
-                'variety_title': variety.title,
-                'variety_price': variety.price,
-                'variety_picture': variety.picture,
-                'variety_id': variety.id,
-            }
-            return render(request, 'store/merci.html', context)
+                variety.save()
+                context = {
+                    'variety_title': variety.title,
+                    'variety_price': variety.price,
+                    'variety_picture': variety.picture,
+                    'variety_id': variety.id,
+                }
+                return render(request, 'store/merci.html', context)
         else:
             form = {'errors': form.errors.items()}
     else:

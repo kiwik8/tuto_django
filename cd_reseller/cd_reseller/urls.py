@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^store/', include('store.urls', namespace='store')),
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
-    path('manage/', views.manage_variety, name='manage')
+    path('manage/', views.manage_variety, name='manage'),
 ]
 
 if settings.DEBUG:
