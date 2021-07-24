@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import ContactForm, VarietyForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
 
@@ -95,7 +96,7 @@ def about(request):
     return render(request, 'store/about.html')
 
 
-@staff_member_required
+@user_passes_test(lambda u: u.is_superuser, login_url='/admin/login/?next=/manage/')
 def manage_variety(request):
     context = {
 
@@ -140,4 +141,3 @@ def manage_variety(request):
         form = VarietyForm
     context['form'] = form
     return render(request, 'store/manage.html', context)
-

@@ -1,26 +1,27 @@
-from django.forms import ModelForm, TextInput, EmailInput, URLInput, NumberInput
+from django import forms
 from .models import Contact, Variety
+from django.utils.safestring import mark_safe
 
 global attrs
-attrs = {'class': 'form-control'}
+attrs = {'class': 'form-control manager'}
 
-class ContactForm(ModelForm):
+class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ["name", "email"]
         widgets = {
-            'name': TextInput(attrs=attrs),
-            'email': EmailInput(attrs=attrs)
+            'name': forms.TextInput(attrs=attrs),
+            'email': forms.EmailInput(attrs=attrs)
         }
 
 
-class VarietyForm(ModelForm):
+class VarietyForm(forms.ModelForm):
     class Meta:
         model = Variety
         fields = ["title", "picture", "price", "stock"]
         widgets = {
-            'title': TextInput(attrs=attrs),
-            'picture': URLInput(attrs=attrs),
-            'price': NumberInput(attrs=attrs),
-            'stock': NumberInput(attrs=attrs)
+            'title': forms.TextInput(attrs=attrs),
+            'picture': forms.URLInput(attrs=attrs),
+            'price': forms.NumberInput(attrs=attrs),
+            'stock': forms.NumberInput(attrs=attrs)
         }

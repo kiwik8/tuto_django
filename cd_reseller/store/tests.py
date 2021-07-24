@@ -13,6 +13,10 @@ class IndexPageTestCase(TestCase):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
 
+    def test_admin(self):
+        response = self.client.get(reverse('manage'))
+        self.assertEqual(response.status_code, 302)
+
 # Detail Page
 class DetailPageTestCase(TestCase):
 
@@ -117,7 +121,7 @@ class BookingPageTestCase(TestCase):
         email = self.contact.email
         name = self.contact.name
         variety_id = self.variety.id
-        for i in range(5):
+        for i in range(Variety.objects.get(pk=variety_id).stock):
             self.client.post(reverse('store:detail', args=(variety_id, )), {
                 "name": name,
                 "email": email
@@ -127,7 +131,24 @@ class BookingPageTestCase(TestCase):
         self.assertFalse(self.variety.available)
 
 class ManagePageTestCase(TestCase):
-# Test logged in to pass into
+    # Test logged in to pass into
 
     def setUp(self):
-        pass
+        self.variety = Variety.objects.create(
+            title="Test",
+            picture="http://test.com",
+            price=10,
+            stock=10
+        )
+
+    def TestCreateVariety(self):
+        variety = Variety.objects.get(title=self.variety.title)
+        stock = variety.stock
+        self.client.post(reverse('manage'), {
+            'title': variety.title,
+            'picture': variety.picture,
+            'price': variety.price,
+            'stock': variety.stock
+        })
+        variety.refresh_from_db()
+        self.assertEqual(variety.stock - 1, stock)

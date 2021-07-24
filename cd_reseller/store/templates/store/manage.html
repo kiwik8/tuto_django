@@ -1,14 +1,35 @@
 {% extends 'store/base.html' %}
 
+<style>
 
+</style>
 
 {% block content %}
-    
     <form action="{% url 'manage'%}" method="post" class="form-inline" align="center">
-        {% csrf_token %}
-        {{ form.as_ul }}
-
-        <button type="submit" class="btn btn-success">Submit</button>
+      <br>
+      <br>
+      <div class="fieldWrapper">
+        <table align="center">
+          <tbody>
+            {% for field in form %}
+              <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>{{ field }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+      <br>
+      <br>
+      <button type="submit" class="btn btn-success">Submit</button>
+      <br>
+      <br>
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <a href="{% url 'admin:logout' %}">  
+          <button type="button" class="btn btn-primary"> Logout </button>
+        </a>
+      </div>
     </form>
     
 
