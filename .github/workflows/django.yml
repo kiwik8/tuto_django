@@ -37,6 +37,6 @@ jobs:
     - name: Check code
       run: |
         pip install coverage
-        coverage run manage.py test
-        coverage report
+        coverage run -m manage.py test
+        coverage report --omit store/tests.py
     
