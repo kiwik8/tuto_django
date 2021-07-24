@@ -15,6 +15,7 @@ class Variety(models.Model):
     def __str__(self):
         return self.title
 
+
 class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     shipped = models.BooleanField(default=False)

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+# import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-v%zp%vh!zmxi0p%pp3cpg-zhjrfw0-o8njq3if^65$zzqpvswm'
+SECRET_KEY = 'django-insecure-v%zp%vh!\
+    zmxi0p%pp3cpg-zhjrfw0-o8njq3if^65$zzqpvswm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,16 +89,16 @@ if not var_home == "not_home":
             'PASSWORD': 'lizzy4231',
             'HOST': '192.168.1.34',
             'PORT': '5432',
-            'ATOMIC_REQUESTS' : True,
-        },}
+            'ATOMIC_REQUESTS': True,
+        }, }
 else:
     DATABASES = {
-      'default' : {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",
-        'ATOMIC_REQUESTS' : True,
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / "db.sqlite3",
+            'ATOMIC_REQUESTS': True,
+        }
     }
-}
 
 
 # Password validation
@@ -105,16 +106,20 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_\
+            validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_\
+            validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_\
+            validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_\
+            validation.NumericPasswordValidator',
     },
 ]
 

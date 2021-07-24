@@ -16,6 +16,7 @@ class VarietyForm(forms.ModelForm):
             'stock': forms.NumberInput(attrs=attrs)
         }
 
+
 class BookingForm(forms.ModelForm):
     # CAPTCHA HERE
     class Meta:
