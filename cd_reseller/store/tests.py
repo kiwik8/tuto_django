@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from .models import Variety, Booking
 import logging
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Logs
@@ -99,7 +100,7 @@ class BookingPageTestCase(TestCase):
         self.variety.refresh_from_db()
         self.assertTrue(self.variety.available)
 
-    def two_bookings_for_one_variety(self):
+    def test_two_bookings_for_one_variety(self):
         variety_id = self.variety.id
         address = self.address
         pgp = self.pgp
@@ -128,7 +129,6 @@ class BookingPageTestCase(TestCase):
         pgp = self.pgp
         email = self.email
         variety_id = self.variety.id
-        self.assertEqual(Variety.objects.get(pk=variety_id).stock, 5)
         for i in range(Variety.objects.get(pk=variety_id).stock):
             self.client.post(reverse('store:booking', args=(variety_id, )), {
                 'address': address,
@@ -145,21 +145,26 @@ class ManagePageTestCase(TestCase):
     # Test logged in to pass into
 
     def setUp(self):
-        self.variety = Variety.objects.create(
-            title="Test",
-            picture="http://test.com",
-            price=10,
-            stock=10
-        )
+        self.fake = {
+            'username': 'fake',
+            'password': 'fake'
+        }
 
-    def TestCreateVariety(self):
-        variety = Variety.objects.get(title=self.variety.title)
-        stock = variety.stock
-        self.client.post(reverse('manage'), {
-            'title': variety.title,
-            'picture': variety.picture,
-            'price': variety.price,
-            'stock': variety.stock
+    def test_CreateVariety_without_admins_rights(self):
+        title = "Bonjour"
+        request = self.client.post(reverse('manage'), {
+            'title': title,
+            'picture': 'url.com',
+            'price': 25,
+            'stock': 5
         })
-        variety.refresh_from_db()
-        self.assertEqual(variety.stock - 1, stock)
+        self.assertEqual(request.status_code, 302)
+        try:
+            variety = Variety.objects.get(title=title)
+        except ObjectDoesNotExist:
+            variety = None
+        self.assertIsNone(variety)
+
+    def test_login_WithoutAdminRights(self):
+        response = self.client.post('/admin/login/', self.fake)
+        self.assertFalse(response.context['user'].is_superuser)
