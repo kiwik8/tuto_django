@@ -4,6 +4,8 @@ from .models import Variety, Booking
 import logging
 from django.core.exceptions import ObjectDoesNotExist
 from cd_reseller.settings import DATABASES
+import os
+from cd_reseller import credentials
 
 
 # Logs
@@ -180,4 +182,8 @@ class SettingsPage(TestCase):
         self.db = DATABASES['default']
 
     def test_databases(self):
+        if self.db['HOST'] == credentials.HOST_HOME:
+            self.assertEqual(os.environ.get('home'), '1')
+        elif self.db['HOST'] == credentials.HOST_NOT_HOME:
+            self.assertEqual(os.environ.get('home'), '0')
         self.assertEqual(self.db['ENGINE'], 'django.db.backends.postgresql')
