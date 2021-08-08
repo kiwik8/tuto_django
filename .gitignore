@@ -130,4 +130,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-.\cd_reseller\cd_reseller\settings.py
+
+settings.py
