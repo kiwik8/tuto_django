@@ -1,3 +1,4 @@
+
 """
 Django settings for cd_reseller project.
 
@@ -79,8 +80,20 @@ WSGI_APPLICATION = 'cd_reseller.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-var_home = "not_home"
-if not var_home == "not_home":
+home = True
+if not home:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'cd',
+            'USER': 'postgres',
+            'PASSWORD': 'lizzy4231',
+            'HOST': 'martin.onthewifi.com',
+            'PORT': '5432',
+            'ATOMIC_REQUESTS': True,
+        }
+    }
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -91,14 +104,6 @@ if not var_home == "not_home":
             'PORT': '5432',
             'ATOMIC_REQUESTS': True,
         }, }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / "db.sqlite3",
-            'ATOMIC_REQUESTS': True,
-        }
-    }
 
 
 # Password validation

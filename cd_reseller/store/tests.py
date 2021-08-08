@@ -3,6 +3,7 @@ from django.urls import reverse
 from .models import Variety, Booking
 import logging
 from django.core.exceptions import ObjectDoesNotExist
+from cd_reseller.settings import DATABASES
 
 
 # Logs
@@ -149,6 +150,10 @@ class ManagePageTestCase(TestCase):
             'username': 'fake',
             'password': 'fake'
         }
+        self.real = {
+            'username': 'martingouv',
+            'password': 'lizzy4231'
+        }
 
     def test_CreateVariety_without_admins_rights(self):
         title = "Bonjour"
@@ -168,3 +173,11 @@ class ManagePageTestCase(TestCase):
     def test_login_WithoutAdminRights(self):
         response = self.client.post('/admin/login/', self.fake)
         self.assertFalse(response.context['user'].is_superuser)
+
+
+class SettingsPage(TestCase):
+    def setUp(self):
+        self.db = DATABASES['default']
+
+    def test_databases(self):
+        self.assertEqual(self.db['ENGINE'], 'django.db.backends.postgresql')
