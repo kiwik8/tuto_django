@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      db_home: '0'
     defaults:
       run:
         working-directory: ./cd_reseller/
