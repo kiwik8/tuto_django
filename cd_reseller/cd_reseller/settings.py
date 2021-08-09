@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-from cd_reseller import credentials
+try:
+    from cd_reseller import credentials
+except ImportError:
+    from cd_reseller import github_credentials as credentials
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
