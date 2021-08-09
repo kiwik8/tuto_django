@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'cd_reseller.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-home = os.environ.get('home')
+home = os.environ.get('db_home')
 if home == '0':
     DATABASES = {
         'default': {

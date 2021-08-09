@@ -183,7 +183,7 @@ class SettingsPage(TestCase):
 
     def test_databases(self):
         if self.db['HOST'] == credentials.HOST_HOME:
-            self.assertEqual(os.environ.get('home'), '1')
+            self.assertEqual(os.environ.get('db_home'), '1')
         elif self.db['HOST'] == credentials.HOST_NOT_HOME:
-            self.assertEqual(os.environ.get('home'), '0')
+            self.assertEqual(os.environ.get('db_home'), '0')
         self.assertEqual(self.db['ENGINE'], 'django.db.backends.postgresql')
