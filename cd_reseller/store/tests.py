@@ -5,7 +5,10 @@ import logging
 from django.core.exceptions import ObjectDoesNotExist
 from cd_reseller.settings import DATABASES
 import os
-from cd_reseller import credentials
+try:
+    from cd_reseller import credentials
+except ImportError:
+    from cd_reseller import github_credentials as credentials
 
 
 # Logs
